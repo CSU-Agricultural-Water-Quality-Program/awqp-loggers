@@ -12,9 +12,9 @@ by monitoring in-canopy temperature and relative humidity.
 // This #include statement was automatically added by the Particle IDE.
 #include <adafruit-sht31.h>
 
-//TODO: add ubidots correctly: https://help.ubidots.com/en/articles/513304-connect-your-particle-device-to-ubidots-using-particle-webhooks
+//TODO: check for ubidots webhook correctness: https://help.ubidots.com/en/articles/513304-connect-your-particle-device-to-ubidots-using-particle-webhooks
 //TODO: test sleep mode: https://community.particle.io/t/boron-sleep-2-0-examples-and-power-savings/54992/9
-
+//TODO: use Mike Otto spreadsheet to display infection values on Ubidots
 #define subsamples 5
 
 Adafruit_SHT31 sht31 = Adafruit_SHT31();      // SHT31 or SHT35 in air,  T/RH
