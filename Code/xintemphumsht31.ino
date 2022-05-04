@@ -1,8 +1,19 @@
+/*
+AWQP Cercospora monitoring apparatus
+Adapted by A.J. Brown, May 3, 2022
+
+Device that estimates sugar beet susceptibility to cercospora bacterial infection
+by monitoring in-canopy temperature and relative humidity.
+*/
+
 // This #include statement was automatically added by the Particle IDE.
 #include <RunningAverage.h>
 
 // This #include statement was automatically added by the Particle IDE.
 #include <adafruit-sht31.h>
+
+//TODO: add ubidots correctly: https://help.ubidots.com/en/articles/513304-connect-your-particle-device-to-ubidots-using-particle-webhooks
+//TODO: test sleep mode: https://community.particle.io/t/boron-sleep-2-0-examples-and-power-savings/54992/9
 
 #define subsamples 5
 
@@ -29,17 +40,21 @@ int rat;
 float strengthPercentage =0.0;
 float qualityPercentage=0.0;
 
+SystemSleepConfiguration config;
 
 void setup() {
-    
+
  Wire.begin();
 
- Particle.variable("BattVolt", batteryString);                   // Particle variables that enable monitoring using the mobile app
+ Particle.variable("BattVolt", batteryString); // Particle variables that enable monitoring using the mobile app
  Particle.variable("panelT", panelTemperatureString);
  Particle.variable("panelRH", panelHumidityString);
  Particle.variable("Signal", SignalString);
 
- sht31.begin(0x44);                                                    // SHT31 T/RH  
+ config.mode(SystemSleepMode::ULTRA_STOP) // configure sleep mode; sleep 27 minutes between readings
+       .duration(27min);
+
+ sht31.begin(0x44); // SHT31 T/RH
 
  myRA1.clear();
  myRA2.clear();
@@ -47,36 +62,34 @@ void setup() {
 }
 
 void loop() {
-    
-    if(Time.minute() % 5 == 0 && Time_old != Time.minute()){ //Samples every 10 min. change the "10" to change sample interval in min (1 - 59)
 
-    digitalWrite(D7, HIGH); //turn on led 
-     
+    if(Time.minute() % 30 == 0 && Time_old != Time.minute()){ //Samples every 30 min. change the "30" to change sample interval in min (1 - 59)
+
+    digitalWrite(D7, HIGH); //turn on led
+
     takeMeasurements();
 
     getSignalStrength();
 
     sendData();
 
-    Time_old = Time.minute(); // resetting time 
+    Time_old = Time.minute(); // resetting time
+
+    System.sleep(config); // set device to sleep
 
     }
 }
 
-
-
-void sendData() {                                           //send data to particle cloud  
-  char data[512];                                           // Store the date in this character array - not global
-  unsigned long timeStampValue = Time.now();                // timestamps 
+void sendData() { //send data to particle cloud
+  char data[512]; // Store the date in this character array - not global
+  unsigned long timeStampValue = Time.now(); // timestamps
     snprintf(data, sizeof(data),"{\"T\":%4.1f, \"RH\":%4.1f, \"battery\":%4.1f, \"charge\":%i, \"Signal\": %4.1f, \"Quality\": %4.1f, \"timestamp\":%lu000}",panelTemperature, panelHumidity, batteryVoltage, stateOfCharge, strengthPercentage, qualityPercentage, timeStampValue);
     //publishQueue.publish("Basic_Soil_Hook", data, PRIVATE);
-    Particle.publish("Xin_Temp", data, PRIVATE);
+    Particle.publish("AWQP_Temp", data, PRIVATE);
   }
 
-
-
 bool takeMeasurements() {
-    
+
     if (Cellular.ready()){
   // Get battery voltage level and state  of charge
   batteryVoltage = fuel.getVCell();  // = 4.0 Voltage level of battery
@@ -85,7 +98,7 @@ bool takeMeasurements() {
 
 panelTemperature = sht31.readTemperature();
 panelHumidity = sht31.readHumidity();
-//if (isnan(panelTemperature) || isnan(panelHumidity)) {  
+//if (isnan(panelTemperature) || isnan(panelHumidity)) {
 //   panelTemperature=0.0;
   //  panelHumidity=0.0;
 
@@ -93,20 +106,20 @@ panelHumidity = sht31.readHumidity();
       panelTemperature = sht31.readTemperature();
       panelHumidity = sht31.readHumidity();
       delay(30);
-      myRA1.addValue(panelTemperature); 
-      myRA2.addValue(panelHumidity); 
-    }  
+      myRA1.addValue(panelTemperature);
+      myRA2.addValue(panelHumidity);
+    }
     panelTemperature=myRA1.getAverage();
     panelHumidity=myRA2.getAverage();
 
-    
+
     snprintf(panelTemperatureString,sizeof(panelTemperatureString), "%4.1f C", panelTemperature);
     snprintf(panelHumidityString,sizeof(panelHumidityString), "%4.1f C", panelHumidityString);
     myRA1.clear();
-    myRA2.clear();  
-  
+    myRA2.clear();
+
   }
-  
+
 
   return 1;
 }
@@ -115,11 +128,9 @@ void getSignalStrength()
 {
   CellularSignal sig = Cellular.RSSI();
   rat = sig.getAccessTechnology();
-  
+
     strengthPercentage = sig.getStrength();
     qualityPercentage = sig.getQuality();
-  
+
  snprintf(SignalString,sizeof(SignalString), "S:%2.0f%%, Q:%2.0f%% ", strengthPercentage, qualityPercentage);
 }
-
-    
