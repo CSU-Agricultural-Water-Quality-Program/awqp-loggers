@@ -86,7 +86,7 @@ void sendData() { //send data to particle cloud
   unsigned long timeStampValue = Time.now(); // timestamps
     snprintf(data, sizeof(data),"{\"T\":%4.1f, \"RH\":%4.1f, \"battery\":%4.1f, \"charge\":%i, \"Signal\": %4.1f, \"Quality\": %4.1f, \"timestamp\":%lu000}",panelTemperature, panelHumidity, batteryVoltage, stateOfCharge, strengthPercentage, qualityPercentage, timeStampValue);
     //publishQueue.publish("Basic_Soil_Hook", data, PRIVATE);
-    Particle.publish("AWQP_Temp", data, PRIVATE);
+    Particle.publish("AWQP_Cercospora_Monitor", data, PRIVATE);
   }
 
 bool takeMeasurements() {
