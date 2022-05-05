@@ -13,7 +13,6 @@ by monitoring in-canopy temperature and relative humidity.
 #include <adafruit-sht31.h>
 
 //TODO: check for ubidots webhook correctness: https://help.ubidots.com/en/articles/513304-connect-your-particle-device-to-ubidots-using-particle-webhooks
-//TODO: test sleep mode: https://community.particle.io/t/boron-sleep-2-0-examples-and-power-savings/54992/9
 //TODO: incorporate sd card: https://docs.particle.io/cards/libraries/s/SdFat/
 //TODO: use Mike Otto spreadsheet to display infection values on Ubidots
 #define subsamples 5
@@ -48,11 +47,11 @@ void setup() {
  Wire.begin();
 
  Particle.variable("BattVolt", batteryString); // Particle variables that enable monitoring using the mobile app
- Particle.variable("panelT", panelTemperatureString);
- Particle.variable("panelRH", panelHumidityString);
+ Particle.variable("SensorT", panelTemperatureString);
+ Particle.variable("SensorRH", panelHumidityString);
  Particle.variable("Signal", SignalString);
 
- config.mode(SystemSleepMode::ULTRA_STOP) // configure sleep mode; sleep 27 minutes between readings
+ config.mode(SystemSleepMode::STOP) // configure sleep mode; sleep 27 minutes between readings
        .duration(27min);
 
  sht31.begin(0x44); // SHT31 T/RH
@@ -85,7 +84,6 @@ void sendData() { //send data to particle cloud
   char data[512]; // Store the date in this character array - not global
   unsigned long timeStampValue = Time.now(); // timestamps
     snprintf(data, sizeof(data),"{\"T\":%4.1f, \"RH\":%4.1f, \"battery\":%4.1f, \"charge\":%i, \"Signal\": %4.1f, \"Quality\": %4.1f, \"timestamp\":%lu000}",panelTemperature, panelHumidity, batteryVoltage, stateOfCharge, strengthPercentage, qualityPercentage, timeStampValue);
-    //publishQueue.publish("Basic_Soil_Hook", data, PRIVATE);
     Particle.publish("AWQP_Cercospora_Monitor", data, PRIVATE);
   }
 
@@ -96,12 +94,6 @@ bool takeMeasurements() {
   batteryVoltage = fuel.getVCell();  // = 4.0 Voltage level of battery
   snprintf(batteryString, sizeof(batteryString), "%4.1f V", batteryVoltage);
   stateOfCharge = int(fuel.getSoC());
-
-panelTemperature = sht31.readTemperature();
-panelHumidity = sht31.readHumidity();
-//if (isnan(panelTemperature) || isnan(panelHumidity)) {
-//   panelTemperature=0.0;
-  //  panelHumidity=0.0;
 
     for (byte i=0; i<=subsamples; i++)   {
       panelTemperature = sht31.readTemperature();
@@ -115,7 +107,7 @@ panelHumidity = sht31.readHumidity();
 
 
     snprintf(panelTemperatureString,sizeof(panelTemperatureString), "%4.1f C", panelTemperature);
-    snprintf(panelHumidityString,sizeof(panelHumidityString), "%4.1f C", panelHumidityString);
+    snprintf(panelHumidityString,sizeof(panelHumidityString), "%4.1f%%", panelHumidity);
     myRA1.clear();
     myRA2.clear();
 
