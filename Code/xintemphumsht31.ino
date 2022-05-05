@@ -14,6 +14,7 @@ by monitoring in-canopy temperature and relative humidity.
 
 //TODO: check for ubidots webhook correctness: https://help.ubidots.com/en/articles/513304-connect-your-particle-device-to-ubidots-using-particle-webhooks
 //TODO: test sleep mode: https://community.particle.io/t/boron-sleep-2-0-examples-and-power-savings/54992/9
+//TODO: incorporate sd card: https://docs.particle.io/cards/libraries/s/SdFat/
 //TODO: use Mike Otto spreadsheet to display infection values on Ubidots
 #define subsamples 5
 
