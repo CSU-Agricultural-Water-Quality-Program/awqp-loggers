@@ -1,16 +1,18 @@
 /*
 AWQP Cercospora monitoring apparatus
-Adapted by A.J. Brown, May 3, 2022
+Created by Emmanuel Deleon and A.J. Brown, May 3, 2022
 
 Device that estimates sugar beet susceptibility to cercospora bacterial infection
 by monitoring in-canopy temperature and relative humidity.
+
+Particle pinout for I2C: https://docs.particle.io/tutorials/learn-more/about-i2c/
 */
 
 // This #include statement was automatically added by the Particle IDE.
-#include <RunningAverage.h>
+#include <adafruit-sht31.h>
 
 // This #include statement was automatically added by the Particle IDE.
-#include <adafruit-sht31.h>
+#include <RunningAverage.h>
 
 //TODO: check for ubidots webhook correctness: https://help.ubidots.com/en/articles/513304-connect-your-particle-device-to-ubidots-using-particle-webhooks
 //TODO: incorporate sd card: https://docs.particle.io/cards/libraries/s/SdFat/
@@ -40,7 +42,7 @@ int rat;
 float strengthPercentage =0.0;
 float qualityPercentage=0.0;
 
-SystemSleepConfiguration config;
+SystemSleepConfiguration config; // more on sleep: https://docs.particle.io/tutorials/learn-more/about-sleep/
 
 void setup() {
 
@@ -112,7 +114,6 @@ bool takeMeasurements() {
     myRA2.clear();
 
   }
-
 
   return 1;
 }
