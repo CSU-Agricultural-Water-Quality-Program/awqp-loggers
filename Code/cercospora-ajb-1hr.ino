@@ -14,10 +14,13 @@ Particle pinout for I2C: https://docs.particle.io/tutorials/learn-more/about-i2c
 // This #include statement was automatically added by the Particle IDE.
 #include <RunningAverage.h>
 
-//TODO: check for ubidots webhook correctness: https://help.ubidots.com/en/articles/513304-connect-your-particle-device-to-ubidots-using-particle-webhooks
 //TODO: incorporate sd card: https://docs.particle.io/cards/libraries/s/SdFat/
 //TODO: use Mike Otto spreadsheet to display infection values on Ubidots
 #define subsamples 5
+
+// Uncomment to release as firmware in particle product
+PRODUCT_ID(PLATFORM_ID);
+PRODUCT_VERSION(3); // increment each time you upload to the product console
 
 Adafruit_SHT31 sht31 = Adafruit_SHT31();      // SHT31 or SHT35 in air,  T/RH
 
@@ -54,7 +57,7 @@ void setup() {
  Particle.variable("Signal", SignalString);
 
  config.mode(SystemSleepMode::STOP) // configure sleep mode; sleep 27 minutes between readings
-       .duration(27min);
+      .duration(57min);
 
  sht31.begin(0x44); // SHT31 T/RH
 
@@ -65,7 +68,7 @@ void setup() {
 
 void loop() {
 
-    if(Time.minute() % 30 == 0 && Time_old != Time.minute()){ //Samples every 30 min. change the "30" to change sample interval in min (1 - 59)
+    if(Time.hour() % 1 == 0 && Time_old != Time.hour()){ //Samples every hour. change the "1" to change sample interval in hours (0-23)
 
     digitalWrite(D7, HIGH); //turn on led
 
@@ -75,7 +78,9 @@ void loop() {
 
     sendData();
 
-    Time_old = Time.minute(); // resetting time
+    Time_old = Time.hour(); // resetting time
+    
+    delay(9000); // needed to allow time for data to send prior to sleep initiation
 
     System.sleep(config); // set device to sleep
 
