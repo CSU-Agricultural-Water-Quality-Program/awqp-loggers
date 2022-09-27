@@ -59,8 +59,8 @@ void setup() {
  Particle.variable("SensorRH", panelHumidityString);
  Particle.variable("Signal", SignalString);
 
- config.mode(SystemSleepMode::STOP) // configure sleep mode; sleep 57 minutes between readings
-      .duration(57min);
+ config.mode(SystemSleepMode::STOP) // configure sleep mode; sleep 27 minutes between readings
+      .duration(27min);
 
  sht31.begin(0x44); // SHT31 T/RH
 
@@ -71,7 +71,7 @@ void setup() {
 
 void loop() {
 
-    if(Time.hour() % 1 == 0 && Time_old != Time.hour()){ //Samples every hour. change the "1" to change sample interval in hours (0-23)
+    if(Time.minute() % 30 == 0 && Time_old != Time.minute()){ //Samples every 30 min. change the "1" to change sample interval in hours (0-23)
 
     digitalWrite(D7, HIGH); //turn on led
 
@@ -81,7 +81,7 @@ void loop() {
 
     sendData();
 
-    Time_old = Time.hour(); // resetting time
+    Time_old = Time.minute(); // resetting time
 
     delay(9000); // needed to allow time for data to send prior to sleep initiation
 
