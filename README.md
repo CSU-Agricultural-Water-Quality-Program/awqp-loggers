@@ -28,17 +28,19 @@ As technology improves and scale, low-cost alternatives to traditional environme
 ## Repo Contents
 * cercospora-sensor
     * file containing necessary firmware and associated files for flashing a particle boron device to become a cercospora leaf spot detector
-* pileTemp-sensor
-    * file containing necessary firmware and associated files for flashing a particle boron device to become a sugarbeet pile temperature monitor
+* pileTemp-sensor-MCP9808
+    * file containing necessary firmware and associated files for flashing a particle boron device to become a sugarbeet pile temperature monitor *using 3x MCP9808 temperature sensors daisy-chained on a sensor string.*
+* pileTemp-sensor-sht31
+    * file containing necessary firmware and associated files for flashing a particle boron device to become a sugarbeet pile temperature monitor *using 1x sht-31 temp. and RH% sensor on a sensor string*
 * figures
     * figures embedded into README.md
 
 
 ## 3D Prints
-Coming Soon!
+* Radiation Sheild - [Thingiverse Link](https://www.thingiverse.com/thing:5825967)
+* Solar Panel Mount - [Thingiverse Link](https://www.thingiverse.com/thing:5829859)
 
-As found on our [AWQP Printables page](https://www.printables.com/@AgWaterQuality_66019):
-* Solar panel mount
+Coming soon!
 * Battery and PCB mount
 
 ## Parts List
