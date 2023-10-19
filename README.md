@@ -10,7 +10,7 @@ A multi-functional, low-cost, IoT data logger created for monitoring sugarbeet c
 * Emmanuel Deleon<sup>a</sup>, Technical Research Lead, e.deleon@colostate.edu
 * Erik Wardle<sup>a</sup>, Program Director, Erik.Wardle@colostate.edu
 
-<sup>a</sup>Colorado State University Agricultural Water Quality program
+<sup>a</sup>Colorado State University Agricultural Water Quality Program
 
 ## Project Summary
 As technology improves and scale, low-cost alternatives to traditional environmental sensors continue to emerge in the agricultural sector. In sugar beet production, two main operations have been identified by the CSU AWQP, in collaboration with Western Sugar (WS) as an opportunity to capitalize on integrating low-cost, Internet of Things (IoT) sensing into the sugar production process: 1) detecting sugar beet susceptibility to cercospora leaf spot (CLS), a common and detrimental leaf pest, and 2) detecting sugar loss in post-harvest sugar beet piles with temperature sensors. In 2022, the CSU AWQP prototyped and deployed four temperature (T) and relative humidity (RH) sensors to determine daily infection values (DIVs) for CLS with the help of the University of Nebraska-Lincoln collaborators. Results from previous years indicated that the sensors were performing adequately such that they could be a reasonable substitute for current methods of monitoring CLS and storage pile temperature (PT). As such, WS has expressed interest in finding scalable ways to increase the number of sensors in use, as well as determine long-term solutions for data storage. This proposal details how CSU AWQP intends to increase functionality of existing IoT sensors used by WS and create educational workshops to train WS in the production of said sensors for future use.
@@ -75,7 +75,7 @@ Coming soon!
 5. Using [particle console](https://console.particle.io/devices), create a webhook to your desired data collection platform (e.g., Ubidots, Azure, etc.) 
     * The CSU AWQP uses [Ubidots](https://industrial.ubidots.com/)
 6. Check to ensure data is being transmitted correctly on data collection platform
-7. Calculate DIVs using cloud-processing and deliver to stakeholders as needed.
+7. Calculate DIVs using cloud-processing or download data and calculate locally, then deliver to stakeholders as needed for informed decision making.
 
 ## Known Bugs
 * Cercospora Sensor
@@ -83,7 +83,7 @@ Coming soon!
 * Pile Temp. Sensor
     * Hourly readings are too power-consumptive, so we have switched to 2-hr. readings for now
 * Both
-    * The solar panels only charge ~50% of the time.  We suspect the battery is too large, but this will require further testing
+    * The solar panels only charge ~50% of the time.  We suspect the battery is too large, but this will require further testing. For now we are optimizing charging for a 2500 mAh LiPo, 3.7V battery.
 
 ## Future Developments
 * Cercospora Sensor

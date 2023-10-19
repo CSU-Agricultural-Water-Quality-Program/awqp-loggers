@@ -1,20 +1,39 @@
 /* Project: Sugarbeet Pile Temperature Sensor
  * Description: Code for Particle Boron with 3 MCP9809 units for simultanouse temp.
    readings at 3 depths.  Readings are every 4 hours with boron sleep between
-   readings.  GPS will acquire location every 12 hours and enter standby.
+   readings.
    Data are sent via cell data to particle cloud, then webhook to Ubidots
    data service.
  * Author: Emmanuel Deleon, AJ Brown
  * Sponsor: Western Sugar
  * Project Start Date:1 July 2021
- * Last update: 1 Sep 2023
+ * Last update: 16 Oct 2023
  */
-
-// v7.00  removed GPS code
 
 
 //PRODUCT_ID(PLATFORM_ID);
-PRODUCT_VERSION(7); // increment each time you upload firmware to the console
+PRODUCT_VERSION(17); // increment each time you upload firmware to the console
+/*
+Pile Temperature code version 11, Firmware version 17
+
+- for active deployment
+
+- Uses 3x MCP9808 sensors. 
+
+- 2 hour readings
+
+- Optimized solar charging for 2500 mAh, 3.7V, LiPo battery
+
+- GPS REMOVED
+
+- Sleeps between readings
+
+- Stream data to Ubidots
+
+- Includes "TakeMeasurement" function to get readings immediately while device is awake
+
+- Includes "TakeReadingsNow" function to remotely trigger data collection
+*/
 
 // Libs
 #include <MCP9808.h>
@@ -58,6 +77,9 @@ unsigned int rebootDelayMillis = DELAY_BEFORE_REBOOT;
 unsigned long rebootSync = millis();
 bool resetFlag = false;
 
+// Remote takeMeasurementsNow variable
+bool resetFlagReadings = false;
+
 // Variables Related To Particle Mobile Application Reporting and Webhook
 char SignalString[64];
 char batteryString[16];
@@ -68,15 +90,16 @@ char tempFVal3String[16];   // Temp Sensor 3 ...
 // Sleep function: uncomment to add
 SystemSleepConfiguration config;
 
+// Power Configuration for Solar Charging
+SystemPowerConfiguration conf;
+
 void setup() {
     // Serial print & publish program device info upon setup initiation
     Serial.begin(9600);
-    Particle.publish("Pile Temperature Sensor Module Initiated: "+Time.timeStr());
-    Particle.publish("Settings: Readings; 2 hr, Sleep; Yes, GPS; 12 hr");
-    Serial.println("Pile Temperature Sensor Module Initiated: "+Time.timeStr());
-    Serial.println(">>> GPS enabled: 12 hr readings");
-    Serial.println(">>> Temp (MCP9808) enabled: 2 hr readings");
-    Serial.println(">>> Sleep mode: Yes");
+    Particle.publish("Pile Temperature Sensor Module Initiated: MCP9808"+Time.timeStr());
+    Particle.publish("Settings: Sensor; 3x MCP9808, Readings; 120 min, Sleep; 117 min, GPS; off");
+    Serial.println(">>> Pile Temperature Sensor Module Initiated: MCP9808"+Time.timeStr());
+    Serial.println(">>> Settings: Sensor; 3x MCP9808, Readings; 120 min, Sleep; 117 min, GPS; off");
 
     // Sensor Setup
      // turn on Sensors
@@ -96,6 +119,9 @@ void setup() {
 
     //  Remote Reset Function Setup
     Particle.function("reset", cloudResetFunction);
+    
+    //  Take Measurements Function Setup
+    Particle.function("TakeMeasurementsNow", takeMeasurementNow);
 
     // Sleep Setup: uncomment to add
     config.mode(SystemSleepMode::STOP)
@@ -104,12 +130,12 @@ void setup() {
 
 void loop(){
 	// Collect sensor readings and send payload
-	    // Samples every 2 hr. change the "2" to change sample interval in min (0 - 23)
+	    // Samples every 2 hr. change the "2" to change sample interval in hours (0 - 23)
     if(Time.hour() % 2 == 0 && Time_old != Time.hour()){ 
         getSignalStrength(); // signal diagnostics
         takeMeasurements(); // read temperatures
         sendData(); // send payload
-        Time_old = Time.minute(); // resetting timer
+        Time_old = Time.hour(); // resetting timer
         delay(9000); // needed to allow time for data to send prior to sleep initiation
 
         // Sleep
@@ -120,6 +146,15 @@ void loop(){
         // do things here  before reset and then push the button
         Particle.publish("Debug", "Remote Reset Initiated", 300, PRIVATE);
         System.reset();
+    }
+    //  Take Measurements Now Function
+    if (resetFlagReadings) {
+        Particle.publish("Input Recieved: Taking Measurements. "+Time.timeStr());
+        getSignalStrength(); // signal diagnostics
+        takeMeasurements(); // read temperatures
+        sendData(); // send payload
+        Particle.publish("Measurements taken and payload sent. "+Time.timeStr());
+        resetFlagReadings = false;
     }
 }
 
@@ -186,4 +221,19 @@ int cloudResetFunction(String command) {//  Remote Reset Function
     rebootSync = millis();
     return 1;
     // You would call the function by typing “true” in the particle console
+}
+
+int takeMeasurementNow(String command) {
+    resetFlagReadings = true;
+    return 1;
+}
+
+void batt_settings() {
+    // Optimized for smaller 2500 mAh LiPo battery: https://acrobat.adobe.com/id/urn:aaid:sc:US:15adc4fb-8183-4845-b129-5039b2164b1e
+    conf.powerSourceMaxCurrent(1500) // for 2500 mAh bat., this is 1 C5A or 1.0*2500 = 2500 mA; default is 900 mA; due to boron components, real max is ~1500
+    .powerSourceMinVoltage(3750) // Set minimum voltage required for VIN to be used = 3.75V; default is 3880
+    .batteryChargeCurrent(500) // for 2500 mAh bat., this is 0.2 C5A or 0.2*2500 = 500 mA; default is 896 mA
+    .batteryChargeVoltage(4200); // set at 4.2V for 2500 mAh bat.; default is 4.112V termination voltage
+    //.feature(SystemPowerFeature::USE_VIN_SETTINGS_WITH_USB_HOST);
+    System.setPowerConfiguration(conf); // retains these settings
 }
