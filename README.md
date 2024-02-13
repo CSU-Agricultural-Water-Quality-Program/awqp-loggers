@@ -26,9 +26,12 @@ As technology improves and scale, low-cost alternatives to traditional environme
 ---
 
 ## Repo Contents
-* awqp-loggers
+* awqp-logger-sht31-v1
+    * contains firmware and libraries
 * figures
-    * figures embedded into README.md
+    * contains figures embedded into README.md
+* instructional documents
+    * contains bill of materials, and instructional pdfs
 
 
 ## 3D Prints
@@ -60,7 +63,24 @@ As technology improves and scale, low-cost alternatives to traditional environme
 | 3/4 in. 1-Hole Strap | $2.50 | 4 pk | $0.63 | 2 | $1.25 | [Home Depot](https://www.homedepot.com/p/Halex-Universal-3-4-in-1-Hole-Strap-4-Pack-22107/314968705?source=shoppingads&locale=en-US&pla&mtc=SHOPPING-BF-CDP-GGL-D27-027_006_CONDUIT_FIT-NA-NA-NA-PMAX-NA-NA-NA-NA-NBR-NA-NA-NEW-NA_D27Transition&cm_mmc=SHOPPING-BF-CDP-GGL-D27-027_006_CONDUIT_FIT-NA-NA-NA-PMAX-NA-NA-NA-NA-NBR-NA-NA-NEW-NA_D27Transition-71700000113157690--&gad_source=1&acs_info=ZmluYWxfdXJsOiAiaHR0cHM6Ly93d3cuaG9tZWRlcG90LmNvbS9wL0hhbGV4LVVuaXZlcnNhbC0zLTQtaW4tMS1Ib2xlLVN0cmFwLTQtUGFjay0yMjEwNy8zMTQ5Njg3MDUiCg&gclid=Cj0KCQiAh8OtBhCQARIsAIkWb6-ZNUGk4DF6_8K9b_SG3twg-_4rTYJGDSozB688e1TayXbsJCpro0IaAm47EALw_wcB&gclsrc=aw.ds) |
 | Cone Drill bit or 1/2" drill bit | $9.99 | each | $9.99 | 1 | $9.99 | [Amazon](https://www.amazon.com/CO-Z-Titanium-Drilling-Cutting-Electrician/dp/B076QC5BWR/ref=sxin_14_pa_sp_search_thematic_sspa?content-id=amzn1.sym.92181fe7-c843-4c1b-b489-84c087a93895%3Aamzn1.sym.92181fe7-c843-4c1b-b489-84c087a93895&crid=2U01GZIGM67DL&cv_ct_cx=cone+drill+bit&keywords=cone+drill+bit&pd_rd_i=B076QC5BWR&pd_rd_r=557b2ca0-8959-460e-91cf-71f9f81a8c58&pd_rd_w=N3oPN&pd_rd_wg=O6cNx&pf_rd_p=92181fe7-c843-4c1b-b489-84c087a93895&pf_rd_r=WGYSVA5CQWX46TTP7JY3&qid=1706724546&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sprefix=cone+dril%2Caps%2C165&sr=1-5-364cf978-ce2a-480a-9bb0-bdb96faa0f61-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM&psc=1) |
 
-**Total:** $266.80 *(total including cost to buy bulk items)* | $175.78 *(total when accounting for using the exact number of parts)*
+---
+
+**Total Sensor Cost:** $266.80 *(total including cost to buy bulk items initially)* || $175.78 *(total when accounting for using the exact number of parts)*
+
+---
+
+**Recommended Tools**
+| Item Name | Price | Unit | $/Unit | Qty | Total/Sensor | Link |
+|-----------|-------|------|--------|-----|--------------|------|
+| Cone Drill Bit | $10.99 | each | $10.99 | 1 | $10.99 | [Amazon](https://a.co/d/d9EyOLx) |
+| Magnetic Soldering Alligator Clips | $21.99 | each | $21.99 | 1 | $21.99 | [Amazon](https://www.amazon.com/KOTTO-Soldering-Magnetic-Flexible-Workshop/dp/B083SFWLW7/ref=sr_1_97?crid=1W1WI7KFN5MOK&keywords=magnetic%2Balligator%2Bclips&qid=1707339995&sprefix=magnetic%2Balli%2Caps%2C106&sr=8-97&th=1) |
+| Wire Stripper | $25.99 | each | $25.99 | 1 | $25.99 | [Amazon](https://www.amazon.com/IRWIN-VISE-GRIP-2078300-Self-Adjusting-Stripper/dp/B000OQ21CA/ref=sr_1_15?crid=379UHPQLB7G9D&keywords=wire%2Bstripper&qid=1707340653&sprefix=wire%2Bs%2Caps%2C123&sr=8-15&th=1) |
+| Mini Heat Gun with Heat Shield | $24.99 | each | $24.99 | 1 | $24.99 | [Amazon](https://www.amazon.com/SEEKONE-Handheld-Reflector-Embossing-Stripping/dp/B08VFY8THD/ref=sr_1_5?crid=3R62NG61UYLY0&keywords=mini+heat+gun&qid=1707340837&sprefix=mini+heat+gun%2Caps%2C94&sr=8-5) |
+| Mini Heat Gun with Heat Shield | $24.99 | each | $24.99 | 1 | $24.99 | [Amazon](https://www.amazon.com/SEEKONE-Handheld-Reflector-Embossing-Stripping/dp/B08VFY8THD/ref=sr_1_5?crid=3R62NG61UYLY0&keywords=mini+heat+gun&qid=1707340837&sprefix=mini+heat+gun%2Caps%2C94&sr=8-5) |
+| Magnifying Glass w/ Light | $19.99 | each | $19.99 | 1 | $19.99 | [Amazon](https://www.amazon.com/Magnifying-Reading-Dimmable-Eye-Caring-Headboard/dp/B09M9YYSGB/ref=sr_1_42?crid=39IAFATUH0IKY&keywords=magnifying%2Bglass%2Bwith%2Blight&qid=1707342855&sprefix=magni%2Caps%2C112&sr=8-42&th=1) |
+
+---
+**Total Tools Cost:** $103.95
 
 
 ## How-To Guide
