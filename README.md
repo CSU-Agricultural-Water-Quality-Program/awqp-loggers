@@ -86,18 +86,26 @@ As technology improves and scale, low-cost alternatives to traditional environme
 ## How-To Guide
 
 1. Purchase all necessary hardware components 
-2. 3D-print necessary parts
+2. 3D-print Radiation shield (or buy if you prefer)
 3. Assemble hardware
-4. Flash code
-5. Using [particle console](https://console.particle.io/devices), create a webhook to your desired data collection platform (e.g., Ubidots, Azure, etc.) 
-    * The CSU AWQP uses [Ubidots](https://industrial.ubidots.com/)
-6. Check to ensure data is being transmitted correctly on data collection platform
-7. Calculate DIVs using cloud-processing or download data and calculate locally, then deliver to stakeholders as needed for informed decision making.
+    - [Tutorial Video](https://www.youtube.com/watch?v=YALYcm8n4mk)
+    - [Instructional documents](./instructional%20documents/)
+4. Claim [particle boron device](https://store.particle.io/products/boron-lte-cat-m1-noram-with-ethersim-4th-gen) 
+to your own [particle account](https://login.particle.io/signup).
+5. Flash boron with [code from this repository](./awqp-logger-sht31-v1/)
+6. Using [particle console](https://console.particle.io/devices), create a webhook to your desired data collection platform (e.g., Ubidots, Azure, etc.) 
+    * The CSU AWQP uses [Ubidots](https://industrial.ubidots.com/), with example webhook code [here](./webhook-code/)
+7. Check to ensure temp. and RH% data is being transmitted correctly on your data collection platform
+8.  (optional) Calculate DIVs using cloud-processing or download data and calculate locally, then deliver to stakeholders as needed for informed decision making.
 
 ## Known Bugs
-* The solar panels only charge ~50% of the time.  We suspect the battery is too large, but this will require further testing. For now we are optimizing charging for a 2500 mAh LiPo, 3.7V battery.
-    * As a result, we decided to not use the solar panels in the final design.
+* Batteries last approximately 2 weeks on a single battery charge.  It would be nice if this was longer.
 
 ## Future Developments
 * Cloud computing
     * Calculate cercospora daily infection values (DIVs) in the cloud on Ubidots and on Azure IoT Hub
+
+## License
+This project is licensed under the GNU GENERAL PUBLIC LICENSE Version 2 (GNU GPL V2.0) - see the [LICENSE.md](LICENSE.md) file for details.
+
+Copyright © 2024 Colorado State University Agricultural Water Quality Program. All rights reserved.

@@ -1,0 +1,46 @@
+{
+    "name": "AWQP_Cercospora for ubidots.com",
+    "event": "AWQP_Cercospora",
+    "responseTopic": "{{PARTICLE_DEVICE_ID}}/hook-response/{{PARTICLE_EVENT_NAME}}",
+    "url": "https://industrial.api.ubidots.com/api/v1.6/devices/{{{PARTICLE_DEVICE_ID}}}",
+    "requestType": "POST",
+    "noDefaults": true,
+    "rejectUnauthorized": true,
+    "unchunked": false,
+    "data_url_response_event": false,
+    "headers": {
+        "X-Auth-Token": "{PUT YOUR API KEY HERE}"
+    },
+    "json": {
+        "battery": {
+            "value": "{{battery}}",
+            "timestamp": "{{timestamp}}"
+        },
+        "T": {
+            "value": "{{T}}",
+            "timestamp": "{{timestamp}}"
+        },
+        "RH": {
+            "value": "{{RH}}",
+            "timestamp": "{{timestamp}}"
+        },
+        "charge": {
+            "value": "{{charge}}",
+            "timestamp": "{{timestamp}}"
+        },
+        "Signal": {
+            "value": "{{Signal}}",
+            "timestamp": "{{timestamp}}"
+        },
+        "position": {
+            "value": "{{alt}}",
+            "context": {
+                "lat": "{{{lat}}}",
+                "lng": "{{{lng}}}"
+            }
+        }
+    },
+    "product_ids": [
+        17583
+    ]
+}
