@@ -8,6 +8,7 @@ A multi-functional, low-cost, IoT data logger created for monitoring sugarbeet c
 
 * A.J. Brown<sup>a</sup>, Agricultural Data Scientist, Ansley.Brown@colostate.edu
 * Emmanuel Deleon<sup>a</sup>, Technical Research Lead, e.deleon@colostate.edu
+* Jake Ladow<sup>a</sup>, Field Operations Lead, Jake.Ladow@colostate.edu
 * Erik Wardle<sup>a</sup>, Program Director, Erik.Wardle@colostate.edu
 
 <sup>a</sup>Colorado State University Agricultural Water Quality Program
