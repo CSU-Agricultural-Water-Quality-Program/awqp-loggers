@@ -1,6 +1,6 @@
-# Scalable Monitoring of Cercospora Leaf Spot and Temperature in Beet Storage Piles using Low-Cost, Internet of Things (IoT) Systems 
+# Scalable Monitoring of Potato Pests in the San Luis Valley using Low-Cost, Internet of Things (IoT) Systems 
 
-A multi-functional, low-cost, IoT data logger created for monitoring sugarbeet crop health and storage by the [Colorado State University (CSU) Agricultural Water Quality Program (AWQP)](https://waterquality.colostate.edu).
+A multi-functional, low-cost, IoT data logger created for monitoring potato crop health and storage by the [Colorado State University (CSU) Agricultural Water Quality Program (AWQP)](https://waterquality.colostate.edu).
 
 ![data logger diagram](./figures/Cercospora-PT-joint-fig.jpg)
 
@@ -8,6 +8,7 @@ A multi-functional, low-cost, IoT data logger created for monitoring sugarbeet c
 
 * A.J. Brown<sup>a</sup>, Agricultural Data Scientist, Ansley.Brown@colostate.edu
 * Emmanuel Deleon<sup>a</sup>, Technical Research Lead, e.deleon@colostate.edu
+* Jake Ladow<sup>a</sup>, Field Operations Lead, Jake.Ladow@colostate.edu
 * Erik Wardle<sup>a</sup>, Program Director, Erik.Wardle@colostate.edu
 
 <sup>a</sup>Colorado State University Agricultural Water Quality Program
