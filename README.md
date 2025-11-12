@@ -87,7 +87,7 @@ Click on any branch to find its specific firmware and build guide.
   <img src="figures/Picture5.png" width="400">
 </p>
 
-* **[AWQP-Potato-Early-Blight-Sensor](https://github.com/CSU-Agricultural-Water-Quality-Program/awqp-loggers/tree/AWQP-Potato-Early-Blight-Sensor)**
+* **[AWQP-Potato-Early-Blight-Sensor] This branch is under construction!**
     * **Use Case:** Monitors canopy conditions and soil temperature to anticipate disease pressure in potatoes.
     * **Sensors:** SHT31 (Air Temp/Humidity), SHT31 (Soil Temp)
 
@@ -95,7 +95,7 @@ Click on any branch to find its specific firmware and build guide.
   <img src="figures/IMG_8988.jpg" width="250">
 </p>
 
-* **[AWQP-eTape-Water-Level-Sensor](https://github.com/CSU-Agricultural-Water-Quality-Program/awqp-loggers/tree/AWQP-eTape-Water-Level-Sensor)**
+* **[AWQP-eTape-Water-Level-Sensor] This branch is under construction!**
     * **Use Case:** Measures water level in flumes, ditches, or shallow wells to monitor agricultural runoff.
     * **Sensors:** eTape Water Level Sensor
 
